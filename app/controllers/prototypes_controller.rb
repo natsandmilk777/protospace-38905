@@ -11,13 +11,11 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(prototype_params)
+    @prototype = current_user.prototypes.new(prototype_params)
     if @prototype.save
-      redirect_to prototype_path(@comment.prototype)
+      redirect_to root_path, notice: 'Your post prototype successfuly.'
     else
-      @prototype = comment.prototype
-      @comments = @prototype.comments
-      render "prototypes/show"
+      render :new
     end
   end
 
